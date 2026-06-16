@@ -1,6 +1,7 @@
 from sys import executable
 from pkgutil import iter_modules
 from subprocess import run
+from importlib.util import find_spec
 
 #Checks whether the user has the required dependencies installed. If not then it'll download them.
 def check_dependencies():
@@ -19,4 +20,5 @@ def check_dependencies():
 #Installs the missing libraries onto the user's device        
 def install_libraries(libraries_list):
     for library in libraries_list:
-        run([executable, '-m', 'pip', 'install', library])
+        if find_spec(library) is None:
+            run([executable, '-m', 'pip', 'install', library], check = True)
