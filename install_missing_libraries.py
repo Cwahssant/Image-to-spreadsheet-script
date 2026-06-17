@@ -6,7 +6,7 @@ from importlib.util import find_spec
 #Checks whether the user has the required dependencies installed. If not then it'll download them.
 def check_dependencies():
     installed_modules = list(iter_modules())
-    required = ['easyocr']
+    required = ['pytesseract']
     missing = []
 
     for library in required:
