@@ -14,7 +14,7 @@ def check_dependencies():
             missing = True
 
     if which("tesseract") is None:
-        print("Please install Tesseract at https://tesseract-ocr.github.io/tessdoc/Installation.html")
+        print("Please install Tesseract at https://tesseract-ocr.github.io/tessdoc/Installation.html\n or Tesseract is not in your PATH")
         missing = True
 
     if missing:
