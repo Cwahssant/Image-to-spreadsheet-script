@@ -3,12 +3,13 @@ from pkgutil import iter_modules
 from subprocess import run
 from importlib.util import find_spec
 
+
 #Checks whether the user has the required dependencies installed. If not then it'll download them.
 def check_dependencies():
     installed_modules = list(iter_modules())
     required = ['pytesseract']
     missing = []
-
+    
     for library in required:
         if library not in installed_modules:
             missing.append(library)
