@@ -1,5 +1,4 @@
 import sys
-import Image_to_data
 import install_missing_libraries
 
 if len(sys.argv) < 2:
@@ -7,4 +6,7 @@ if len(sys.argv) < 2:
     sys.exit(1)
 
 install_missing_libraries.check_dependencies()
+
+import Image_to_data
+
 Image_to_data.main(sys.argv[1])
