@@ -16,9 +16,13 @@ Image to Spreadsheet is a python script designed to automate the data entry proc
     
     Type "**pip install pytesseract**" in your command line interface (CLI) to install the python wrapper for Tesseract OCR
 
+*OpenCV
+
+    Type "**pip install opencv-python**" in your CLI to install the library
+
 ## Usage
 
-**Note**: If you're providing a photo of handwritten data then the accuracy of the result is dependent on the quality of input 
+**Note**: If you provide an image of handwritten data, then the output may be random data because tesseract can't handle multi-line handwritten data that well  
 
 1. Ensure that python is installed
 2. Ensure that your data is in the correct format as shown below
@@ -35,3 +39,4 @@ Image to Spreadsheet is a python script designed to automate the data entry proc
 1. Data sorting algorithm
 2. Creating a GUI
 3. Support for different spreadsheet file extensions
+4. Support for handwritten data
