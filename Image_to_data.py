@@ -8,7 +8,6 @@ def main(file_name):
     file_extension_location = file_name.rfind('.')
     output_file_name = file_name[0:file_extension_location] + '.csv'
 
-    pytesseract.pytesseract.tesseract_cmd = r'C:\\Users\\tiger\\AppData\\Local\\Programs\\Tesseract-OCR\\tesseract.exe' #Delete later.
     img_file = enhance_image(file_name)
     row_data = read_file(img_file)
     row_data = remove_empty_lists(row_data)
@@ -55,7 +54,7 @@ def read_file(file):
             prev_word = word
             continue
 
-        if word.get("left") - (prev_word.get("left") + prev_word.get("width")) < 40:
+        if word.get("left") - (prev_word.get("left") + prev_word.get("width")) < 20:
             curr_row[-1] = curr_row[-1] + " " + word.get("text")
         else:
             curr_row.append(word.get("text"))
