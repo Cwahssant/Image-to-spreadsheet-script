@@ -12,7 +12,7 @@ def main(file_name):
     img_file = enhance_image(file_name)
     row_data = read_file(img_file)
     row_data = remove_empty_lists(row_data)
-    
+
     with open(output_file_name, "w", newline = '') as ptr:
 
         if ptr == None:
@@ -30,21 +30,42 @@ def read_file(file):
 
     try:
         img = Image.open(file)
-        dat = pytesseract.image_to_string(img, config = config)
+        dat = pytesseract.image_to_data(img, config = config, output_type=pytesseract.Output.DATAFRAME)
         img.close()
     except:
         print("Unable to open", file)
         sys.exit(1)
-
     
-    row_data = []
+    dat = dat[dat.text.notnull()]
+    dat = [{"text": row.text, "row": row.word_num, "left": row.left, "width": row.width} for _, row in dat.iterrows()]
+    result = []
+    curr_row = []
+    prev_word = None
 
-    dat_list = dat.splitlines(keepends = True)
-    
-    for line in dat_list:
-        row_data.append(line.split())
+    for word in dat:
+        if word.get("row") == 1:
+            if curr_row:
+                result.append(curr_row)
 
-    return row_data
+            curr_row = []
+            prev_word = None
+
+        if prev_word is None:
+            curr_row.append(word.get("text"))
+            prev_word = word
+            continue
+
+        if word.get("left") - (prev_word.get("left") + prev_word.get("width")) < 40:
+            curr_row[-1] = curr_row[-1] + " " + word.get("text")
+        else:
+            curr_row.append(word.get("text"))
+
+        prev_word = word
+
+    if curr_row:
+        result.append(curr_row)
+
+    return result
 
 
 # Writes information to a csv file
